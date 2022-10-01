@@ -1,0 +1,620 @@
+<html lang="en" class=""><head><link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+        <title>Service – sool</title><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CPoppins%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPT%20Serif%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;subset=latin&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CPoppins%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPT%20Serif%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;subset=latin&amp;display=swap" media="all" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CPoppins%3A200%2C300%2C400%2C500%2C600%2C700%2C800%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPT%20Serif%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;subset=latin&#038;display=swap" /></noscript>
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//i0.wp.com">
+<link href="https://fonts.gstatic.com" crossorigin="" rel="preconnect">
+<link href="https://i0.wp.com" rel="preconnect">
+<link rel="alternate" type="application/rss+xml" title="Victim | Portfolio » Feed" href="https://demo.softhopper.studio/victim/feed/">
+<link rel="alternate" type="application/rss+xml" title="Victim | Portfolio » Comments Feed" href="https://demo.softhopper.studio/victim/comments/feed/">
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+.elementor img {
+    height: auto;
+    max-width: 400px !important;
+    border: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.elementor-button-text {
+  
+    margin-left: 10px;
+}
+.content {
+    padding: 110px 60px;
+}
+
+.service_p {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    font-weight: 500;
+}
+
+.btn_p {
+    width: fit-content;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+
+.elementor-buttons {
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #ffae18;
+    border-radius: 0px 0px 0px 0px;
+    padding: 20px 45px 20px 45px;
+    display: inline-block;
+    line-height: 1;
+    font-size: 15px;
+    padding: 12px 24px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    text-align: center;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+.btn_hr {
+    height: 1px;
+    width: 60px;
+    background: #fff;
+    margin: 12px 0 0 30px;
+}
+
+.btn_line {
+    margin-top: 40px;
+    background: #940F0F;
+    padding: 12px 0 12px 30px;
+    width: fit-content;
+    display: flex;
+}
+.section.section-portfolio .portfolio-boxes .portfolio-box::before {
+
+    background: rgba(255, 255, 255, 0) !important;
+   
+
+}
+.melike, .urofpartners, .kurumeo, .hinagata {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.content_wrap {
+    max-width: 960px;
+    margin: 0 auto;
+}
+main {
+    display: block;
+    background-color: rgb(241, 241, 241);
+}
+
+.melike, .urofpartners, .kurumeo, .hinagata {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media screen and (max-width: 460px){
+	.mobiledesign {display:none}
+	.sool{height: 250px; width: 250px;}
+	.soollogo{margin: 30px}
+	.elementor-202 .elementor-element.elementor-element-446bf8e1 > .elementor-element-populated {
+    padding: 0px 0px 0px 0px;}
+
+.menu-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+    background-color: #3584bb;
+}
+header .mainmenu li {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.site-branding {
+    max-width: 70%;
+    margin-top: 20px;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    position: absolute;
+}
+.menu-btn span:before {
+    bottom: 8px;
+}
+.menu-btn span:after {
+    top: 8px;
+}
+.site-branding, header.site-header .menu-content {
+    height: 0px !important;
+}
+
+.hamburger-menu.hamburger-mobile .menu-indicator {
+    position: fixed !important;
+    top: 10px;
+    right: 9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+    width: 45px !important;
+    height: 6% !important;
+    display: -webkit-box !;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex;
+}
+header .mainmenu>li>a {
+	border-top: 1px solid #000000 !important;
+}
+.hamburger-menu {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+}
+.hamburger-menu .hamburger-content {
+    position: absolute !important;
+    top: 50% !important;
+    width: 22px !important;
+    height: 2px !important;
+    background: rgb(255, 255, 255) !important;
+    right: 12px !important;
+    display: block !important;
+    -webkit-transform-origin: center !important;
+    -ms-transform-origin: center !important;
+    transform-origin: center !important;
+    -webkit-transition: 0.5s ease-in-out !important;
+    transition: 0.5s ease-in-out !important;
+}
+.hamburger-menu .hamburger-content, .hamburger-menu .hamburger-content:before, .hamburger-menu .hamburger-content:after {
+    background: #ffffff;
+}
+
+.elementor img {
+    height: auto;
+    max-width: 300px !important;
+
+}
+
+.melike, .urofpartners, .kurumeo, .hinagata {
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+}
+
+.anime{
+	display: none;
+}
+
+.content {
+    padding: 50px 60px;
+}
+
+.section.section-portfolio .portfolio-boxes .portfolio-box {
+
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+}
+
+
+
+
+}
+
+.section.section-portfolio .portfolio-boxes .portfolio-box {
+
+margin: 0 auto;
+width: 80%;
+text-align: center;
+}
+</style>
+<link rel="stylesheet" id="jet-blocks-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/jet-blocks/assets/css/jet-blocks.css" media="all">
+<link rel="stylesheet" id="jet-elements-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/jet-elements/assets/css/jet-elements.css" media="all">
+<link rel="stylesheet" id="jet-elements-skin-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/jet-elements/assets/css/jet-elements-skin.css" media="all">
+<link rel="stylesheet" id="elementor-icons-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css" media="all">
+<link rel="stylesheet" id="elementor-frontend-legacy-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/css/frontend-legacy.min.css" media="all">
+<link rel="stylesheet" id="elementor-frontend-css" href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/css/frontend.min.css" media="all">
+<style id="elementor-frontend-inline-css">
+@font-face{font-family:eicons;src:url(https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5.10.0);src:url(https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5.10.0#iefix) format("embedded-opentype"),url(https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff2?5.10.0) format("woff2"),url(https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff?5.10.0) format("woff"),url(https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.ttf?5.10.0) format("truetype"),url(https://i0.wp.com/demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.svg?5.10.0#eicon) format("svg");font-weight:400;font-style:normal}
+.elementor-kit-404{--e-global-color-primary:#6EC1E4;--e-global-color-secondary:#54595F;--e-global-color-text:#7A7A7A;--e-global-color-accent:#61CE70;--e-global-color-7961d68e:#4054B2;--e-global-color-25a3c581:#23A455;--e-global-color-6f7a1266:#000;--e-global-color-2c5bad8d:#FFF;--e-global-typography-primary-font-family:"Roboto";--e-global-typography-primary-font-weight:600;--e-global-typography-secondary-font-family:"Roboto Slab";--e-global-typography-secondary-font-weight:400;--e-global-typography-text-font-family:"Roboto";--e-global-typography-text-font-weight:400;--e-global-typography-accent-font-family:"Roboto";--e-global-typography-accent-font-weight:500;}.elementor-section.elementor-section-boxed > .elementor-container{max-width:1140px;}.elementor-widget:not(:last-child){margin-bottom:20px;}{}h1.entry-title{display:var(--page-title-display);}@media(max-width:1024px){.elementor-section.elementor-section-boxed > .elementor-container{max-width:1024px;}}@media(max-width:767px){.elementor-section.elementor-section-boxed > .elementor-container{max-width:767px;}}
+.elementor-211 .elementor-element.elementor-element-256cd421:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-256cd421 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url("https://i0.wp.com/demo.softhopper.studio/victim/wp-content/uploads/sites/21/2019/12/banner-images.jpg");background-position:center center;background-repeat:no-repeat;background-size:cover;}.elementor-211 .elementor-element.elementor-element-256cd421 > .elementor-background-overlay{background-color:#000000;opacity:0.5;transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-256cd421{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:105px 0px 105px 0px;}.elementor-211 .elementor-element.elementor-element-73d324de .elementor-heading-title{color:#FFFFFF;font-family:"Poppins", Sans-serif;font-size:50px;font-weight:800;line-height:1.3em;}.elementor-211 .elementor-element.elementor-element-73d324de > .elementor-widget-container{padding:0px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-687021dc{--divider-border-style:solid;--divider-color:#ff9f0f;--divider-border-width:2px;}.elementor-211 .elementor-element.elementor-element-687021dc .elementor-divider-separator{width:100px;}.elementor-211 .elementor-element.elementor-element-687021dc .elementor-divider{padding-top:0px;padding-bottom:0px;}.elementor-211 .elementor-element.elementor-element-48d95ff3:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-48d95ff3 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url("https://i0.wp.com/demo.softhopper.studio/victim/wp-content/uploads/sites/21/2019/12/testimonial-bg.jpg");background-position:center center;background-repeat:no-repeat;background-size:cover;}.elementor-211 .elementor-element.elementor-element-48d95ff3{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:105px 0px 90px 0px;}.elementor-211 .elementor-element.elementor-element-48d95ff3 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-2d7715c2.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-2d7715c2 > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-bb41158.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-bb41158.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-bb41158.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-bb41158.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-bb41158.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-bb41158.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-bb41158 > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-a68501f.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-a68501f.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-a68501f.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-a68501f.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-a68501f.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-a68501f.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-a68501f > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-25b78729.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-25b78729.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-25b78729.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-25b78729.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-25b78729.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-25b78729.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-25b78729 > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-116e603.elementor-view-stacked .elementor-icon{background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-116e603.elementor-view-framed .elementor-icon, .elementor-211 .elementor-element.elementor-element-116e603.elementor-view-default .elementor-icon{fill:#ff9f0f;color:#ff9f0f;border-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-116e603.elementor-position-right .elementor-icon-box-icon{margin-left:25px;}.elementor-211 .elementor-element.elementor-element-116e603.elementor-position-left .elementor-icon-box-icon{margin-right:25px;}.elementor-211 .elementor-element.elementor-element-116e603.elementor-position-top .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon{font-size:40px;}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon i{transform:rotate(0deg);}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon-box-title{color:#000000;}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon-box-title, .elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon-box-title a{font-family:"Poppins", Sans-serif;font-size:22px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon-box-description{color:#4E4E4E;font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-116e603 > .elementor-widget-container{margin:0px 0px 15px 0px;padding:35px 30px 35px 30px;background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-29786bf3:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-29786bf3 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-29786bf3{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:85px 0px 90px 0px;}.elementor-211 .elementor-element.elementor-element-29786bf3 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-29defd91{text-align:center;}.elementor-211 .elementor-element.elementor-element-29defd91 .elementor-heading-title{color:#000000;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:800;line-height:1.3em;}.elementor-211 .elementor-element.elementor-element-3cfea82e{text-align:center;color:rgba(0, 0, 0, 0.78);font-family:"Roboto Slab", Sans-serif;font-size:16px;font-weight:400;line-height:1.7em;}.elementor-211 .elementor-element.elementor-element-3cfea82e > .elementor-widget-container{margin:0px 0px 45px 0px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table{background-color:#FFFFFF;border-style:solid;border-width:1px 1px 1px 1px;border-color:#FFFFFF;padding:45px 45px 45px 45px;box-shadow:0px 25px 45px 0px rgba(0, 0, 0, 0.08);}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__title{color:#2B2B2B;font-family:"Poppins", Sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__heading{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__icon{text-align:center;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__price-prefix{color:rgba(0, 0, 0, 0.77);vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-e38188c  .pricing-table__price-prefix{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__price-val{color:#292929;}.elementor-211 .elementor-element.elementor-element-e38188c  .pricing-table__price-val{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__price-suffix{vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__price-desc{margin-top:0px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__price{padding:0px 0px 45px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__features{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-e38188c  .pricing-feature{font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature.item-included{color:#5A5A5A;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature.item-included .item-bullet{font-size:10px;width:10px;color:#6C6C6C;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature.item-excluded{color:#BCBCBC;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature.item-excluded .item-bullet{font-size:14px;width:14px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature.item-excluded .pricing-feature__text{text-decoration:none;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-feature:before{border-top-style:solid;border-top-color:#EFEFEF;border-top-width:1px;margin-top:15px;margin-bottom:15px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__action{text-align:center;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__action .pricing-table-button{background-color:#454545;color:#FFFFFF;border-radius:2px 2px 2px 2px;}.elementor-211 .elementor-element.elementor-element-e38188c  .pricing-table__action .pricing-table-button{font-family:"Poppins", Sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;}.elementor-211 .elementor-element.elementor-element-e38188c .pricing-table__action .pricing-table-button:hover{background-color:#ff9f0f;color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table{background-color:#FFFFFF;border-style:solid;border-width:4px 4px 4px 4px;border-color:#ff9f0f;padding:45px 45px 45px 45px;box-shadow:0px 25px 45px 0px rgba(0, 0, 0, 0.08);}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__title{color:#ff9f0f;font-family:"Poppins", Sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__heading{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__icon{text-align:center;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__price-prefix{color:#ff9f0f;vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-7aed25b1  .pricing-table__price-prefix{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__price-val{color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-7aed25b1  .pricing-table__price-val{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__price-suffix{vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__price-desc{margin-top:0px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__price{padding:0px 0px 45px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__features{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-7aed25b1  .pricing-feature{font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature.item-included{color:#5A5A5A;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature.item-included .item-bullet{font-size:10px;width:10px;color:#6C6C6C;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature.item-excluded{color:#BCBCBC;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature.item-excluded .item-bullet{font-size:14px;width:14px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature.item-excluded .pricing-feature__text{text-decoration:none;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-feature:before{border-top-style:solid;border-top-color:#EFEFEF;border-top-width:1px;margin-top:15px;margin-bottom:15px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__action{text-align:center;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__action .pricing-table-button{background-color:#ff9f0f;color:#FFFFFF;border-radius:2px 2px 2px 2px;}.elementor-211 .elementor-element.elementor-element-7aed25b1  .pricing-table__action .pricing-table-button{font-family:"Poppins", Sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;}.elementor-211 .elementor-element.elementor-element-7aed25b1 .pricing-table__action .pricing-table-button:hover{background-color:#ff9f0f;color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table{background-color:#FFFFFF;border-style:solid;border-width:1px 1px 1px 1px;border-color:#FFFFFF;padding:45px 45px 45px 45px;box-shadow:0px 25px 45px 0px rgba(0, 0, 0, 0.08);}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__title{color:#2B2B2B;font-family:"Poppins", Sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__heading{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__icon{text-align:center;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__price-prefix{color:rgba(0, 0, 0, 0.77);vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-3a53dfd9  .pricing-table__price-prefix{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__price-val{color:#292929;}.elementor-211 .elementor-element.elementor-element-3a53dfd9  .pricing-table__price-val{font-family:"Roboto Slab", Sans-serif;font-size:45px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__price-suffix{vertical-align:baseline;display:inline-block;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__price-desc{margin-top:0px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__price{padding:0px 0px 45px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__features{padding:0px 0px 30px 0px;text-align:center;}.elementor-211 .elementor-element.elementor-element-3a53dfd9  .pricing-feature{font-family:"Roboto Slab", Sans-serif;font-size:15px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature.item-included{color:#5A5A5A;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature.item-included .item-bullet{font-size:10px;width:10px;color:#6C6C6C;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature.item-excluded{color:#BCBCBC;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature.item-excluded .item-bullet{font-size:14px;width:14px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature.item-excluded .pricing-feature__text{text-decoration:none;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-feature:before{border-top-style:solid;border-top-color:#EFEFEF;border-top-width:1px;margin-top:15px;margin-bottom:15px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__action{text-align:center;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__action .pricing-table-button{background-color:#454545;color:#FFFFFF;border-radius:2px 2px 2px 2px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9  .pricing-table__action .pricing-table-button{font-family:"Poppins", Sans-serif;font-size:16px;font-weight:600;letter-spacing:0.5px;}.elementor-211 .elementor-element.elementor-element-3a53dfd9 .pricing-table__action .pricing-table-button:hover{background-color:#ff9f0f;color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-57f2ae35:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-57f2ae35 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url("https://i0.wp.com/demo.softhopper.studio/victim/wp-content/uploads/sites/21/2019/12/banner-images.jpg");background-position:center center;background-repeat:no-repeat;background-size:cover;}.elementor-211 .elementor-element.elementor-element-57f2ae35 > .elementor-background-overlay{background-color:#000000;opacity:0.65;transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-57f2ae35{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:115px 0px 118px 0px;}.elementor-211 .elementor-element.elementor-element-1cb28df2 > .elementor-container{max-width:890px;}.elementor-211 .elementor-element.elementor-element-733d2a10{text-align:center;}.elementor-211 .elementor-element.elementor-element-733d2a10 .elementor-heading-title{color:#FFFFFF;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:800;line-height:1.3em;}.elementor-211 .elementor-element.elementor-element-733d2a10 > .elementor-widget-container{margin:0px 0px 45px 0px;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-content{color:#FFFFFF;font-family:"PT Serif", Sans-serif;font-size:22px;font-style:italic;line-height:1.8em;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-wrapper .victim-testimonial-image img{width:75px;height:75px;border-radius:50px 50px 50px 50px;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-name{color:rgba(255, 255, 255, 0.8);font-family:"Poppins", Sans-serif;font-size:20px;font-weight:700;line-height:1.5em;letter-spacing:0.5px;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-job{color:#D2D2D2;font-family:"Roboto Slab", Sans-serif;font-size:14px;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .testimonial-carousel-item{background:rgba(0,0,0,0);}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-wrapper .swiper-pagination-bullet{height:12px;width:12px;background:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-wrapper .swiper-pagination-bullet-active{background:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-7e8ac8d2 .victim-testimonial-wrapper .swiper-pagination-bullets{margin:15px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-23529570{overflow:hidden;transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:0px 0px 112px 0px;}.elementor-211 .elementor-element.elementor-element-23529570:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-23529570 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-23529570 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-1f6ef0c2{padding:122px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-57942f13{text-align:center;}.elementor-211 .elementor-element.elementor-element-57942f13 .elementor-heading-title{color:#000000;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:800;line-height:1.3em;}.elementor-211 .elementor-element.elementor-element-2b8b549d{text-align:center;color:rgba(0, 0, 0, 0.78);font-family:"Roboto Slab", Sans-serif;font-size:16px;font-weight:400;line-height:1.7em;}.elementor-211 .elementor-element.elementor-element-2b8b549d > .elementor-widget-container{margin:0px 0px 45px 0px;}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box img{:brightness( 100% ) contrast( 100% ) saturate( 0% ) blur( 0px ) hue-rotate( 0deg );}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box:hover img{:brightness( 100% ) contrast( 100% ) saturate( 100% ) blur( 0px ) hue-rotate( 0deg );}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box{border-radius:0px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box::before{border-radius:0px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box .wrap .title{color:#ffffff;}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box .wrap .title .cate span{color:#ffffff;}.elementor-211 .elementor-element.elementor-element-38027080 .section.section-portfolio .portfolio-boxes .portfolio-box:hover::before{background-color:rgba(255, 0, 102, 0.59);}.elementor-211 .elementor-element.elementor-element-38027080 .victim-portfolio-wrapper .swiper-pagination-bullet{height:12px;width:12px;margin-left:8px;margin-right:8px;}.elementor-211 .elementor-element.elementor-element-38027080 .victim-portfolio-wrapper .swiper-pagination-bullet-active{background:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-38027080 .victim-portfolio-wrapper .swiper-pagination-bullets{margin:0px 0px 0px 0px;}.elementor-211 .elementor-element.elementor-element-d6dbcf1 > .elementor-container{max-width:1250px;}.elementor-211 .elementor-element.elementor-element-d6dbcf1:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-d6dbcf1 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-d6dbcf1{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:0px 0px 118px 0px;}.elementor-211 .elementor-element.elementor-element-d6dbcf1 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-64df2d09 .elementor-counter-number-wrapper{color:#131313;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-64df2d09 .elementor-counter-title{color:#ff9f0f;font-family:"Roboto Slab", Sans-serif;font-size:18px;font-weight:800;}.elementor-211 .elementor-element.elementor-element-3b82ee12 .elementor-counter-number-wrapper{color:#030303;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-3b82ee12 .elementor-counter-title{color:#ff9f0f;font-family:"Roboto Slab", Sans-serif;font-size:18px;font-weight:800;}.elementor-211 .elementor-element.elementor-element-7097713e .elementor-counter-number-wrapper{color:#000000;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-7097713e .elementor-counter-title{color:#ff9f0f;font-family:"Roboto Slab", Sans-serif;font-size:18px;font-weight:800;}.elementor-211 .elementor-element.elementor-element-1e192d54 .elementor-counter-number-wrapper{color:#000000;font-family:"Poppins", Sans-serif;font-size:60px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-1e192d54 .elementor-counter-title{color:#ff9f0f;font-family:"Roboto Slab", Sans-serif;font-size:18px;font-weight:800;}.elementor-211 .elementor-element.elementor-element-14dd6fa:not(.elementor-motion-effects-element-type-background), .elementor-211 .elementor-element.elementor-element-14dd6fa > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url("https://i0.wp.com/demo.softhopper.studio/victim/wp-content/uploads/sites/21/2019/12/call-to-bg.jpg");background-position:center center;background-repeat:no-repeat;background-size:cover;}.elementor-211 .elementor-element.elementor-element-14dd6fa{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:90px 0px 95px 0px;}.elementor-211 .elementor-element.elementor-element-14dd6fa > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-211 .elementor-element.elementor-element-7c012e18 .elementor-heading-title{color:#FFFFFF;font-family:"Poppins", Sans-serif;font-size:50px;font-weight:700;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button .elementor-align-icon-right{margin-left:15px;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button .elementor-align-icon-left{margin-right:15px;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button{font-family:"Poppins", Sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.3px;fill:#FFFFFF;color:#FFFFFF;background-color:#ff9f0f;border-radius:0px 0px 0px 0px;padding:20px 50px 20px 50px;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button:hover, .elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button:focus{color:#FFFFFF;background-color:#ff9f0f;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button:hover svg, .elementor-211 .elementor-element.elementor-element-5cfbaca3 .elementor-button:focus svg{fill:#FFFFFF;}.elementor-211 .elementor-element.elementor-element-5cfbaca3 > .elementor-widget-container{margin:0px 0px 0px 0px;}@media(min-width:768px){.elementor-211 .elementor-element.elementor-element-1779583a{width:63.684%;}.elementor-211 .elementor-element.elementor-element-e6b063c{width:36.141%;}}@media(max-width:1024px){.elementor-211 .elementor-element.elementor-element-73d324de{text-align:center;}.elementor-211 .elementor-element.elementor-element-687021dc .elementor-divider{text-align:center;}.elementor-211 .elementor-element.elementor-element-687021dc .elementor-divider-separator{margin:0 auto;margin-center:0;}.elementor-211 .elementor-element.elementor-element-7c012e18{text-align:center;}}@media(max-width:767px){.elementor-211 .elementor-element.elementor-element-73d324de .elementor-heading-title{font-size:45px;}.elementor-211 .elementor-element.elementor-element-2d7715c2 .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-bb41158 .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-2b14d9ca .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-a68501f .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-25b78729 .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-116e603 .elementor-icon-box-icon{margin-bottom:25px;}.elementor-211 .elementor-element.elementor-element-29defd91 .elementor-heading-title{font-size:36px;}.elementor-211 .elementor-element.elementor-element-733d2a10 .elementor-heading-title{font-size:36px;}.elementor-211 .elementor-element.elementor-element-57942f13 .elementor-heading-title{font-size:36px;}.elementor-211 .elementor-element.elementor-element-7c012e18 .elementor-heading-title{font-size:36px;line-height:1.5em;}}@media(max-width:1024px) and (min-width:768px){.elementor-211 .elementor-element.elementor-element-51626785{width:100%;}.elementor-211 .elementor-element.elementor-element-348b0b3d{width:100%;}.elementor-211 .elementor-element.elementor-element-23d896dc{width:100%;}.elementor-211 .elementor-element.elementor-element-3a794dba{width:100%;}.elementor-211 .elementor-element.elementor-element-367e170d{width:100%;}.elementor-211 .elementor-element.elementor-element-3a3e343a{width:100%;}.elementor-211 .elementor-element.elementor-element-2d5dbb9a{width:50%;}.elementor-211 .elementor-element.elementor-element-5953af2d{width:50%;}.elementor-211 .elementor-element.elementor-element-64d544f2{width:50%;}.elementor-211 .elementor-element.elementor-element-3efd5960{width:50%;}.elementor-211 .elementor-element.elementor-element-1779583a{width:100%;}.elementor-211 .elementor-element.elementor-element-e6b063c{width:100%;}}
+</style>
+
+
+
+<script src="https://demo.softhopper.studio/victim/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script src="https://demo.softhopper.studio/victim/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/wp-contact-form7-email-spam-blocker/public/js/contact-form-7-email-spam-blocker-public.js" id="contact-form-7-email-spam-blocker-js" defer=""></script>
+<link rel="https://api.w.org/" href="https://demo.softhopper.studio/victim/wp-json/"><link rel="alternate" type="application/json" href="https://demo.softhopper.studio/victim/wp-json/wp/v2/pages/211"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://demo.softhopper.studio/victim/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://demo.softhopper.studio/victim/wp-includes/wlwmanifest.xml"> 
+
+		<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"><link href="https://demo.softhopper.studio/victim/wp-includes/js/jquery/jquery.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/dist/vendor/wp-polyfill.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/jquery/jquery-migrate.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/wp-contact-form7-email-spam-blocker/public/js/contact-form-7-email-spam-blocker-public.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/victim-core/public/assets/js/front-end-widget.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/dist/vendor/regenerator-runtime.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/contact-form-7/includes/js/index.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/themes/victim/assets/js/all-plugin.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/imagesloaded.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/masonry.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/themes/victim/assets/js/main.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/victim-core/public/assets/js/particles.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/victim-core/public/assets/js/infinite-scroll.pkgd.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/jquery-numerator/jquery-numerator.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/frontend-modules.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-includes/js/jquery/ui/core.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/swiper/swiper.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/frontend.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/jet-blocks/assets/js/jet-blocks.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/jet-elements/assets/js/jet-elements.min.js" rel="preload" as="script"><link href="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/preloaded-modules.min.js" rel="preload" as="script"><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+<body data-rsssl="1" class="page-template-default page page-id-211 wp-custom-logo wp-embed-responsive elementor-default elementor-kit-404 elementor-page elementor-page-211 e--ua-blink e--ua-chrome e--ua-mac e--ua-webkit loading-done" data-elementor-device-mode="desktop">
+        <a class="skip-link screen-reader-text" href="#main">Skip to the content</a>
+	<div class="victim-body light-version" style="padding-bottom: 0px;">
+		                        <div class="preloader" style="display: none;">
+                <div class="preloader-inner">
+                    <div class="preloader-icon">
+                        <span></span>
+                        <span></span>
+                    </div><!-- /preloader-icon -->
+                </div><!-- /preloader-inner -->
+            </div><!-- /preloader -->
+            
+
+            <div class="disable-content-menu"></div> 
+        <div class="victim-page-builder-elementor clearfix" id="main">
+            		<div data-elementor-type="wp-page" data-elementor-id="211" class="elementor elementor-211" data-elementor-settings="[]">
+						<div class="elementor-inner">
+							<div class="elementor-section-wrap">
+						
+			
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-23529570 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="23529570" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-no">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-58f7dd63" data-id="58f7dd63" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<section class="elementor-section elementor-inner-section elementor-element elementor-element-1f6ef0c2 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="1f6ef0c2" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5480ba33" data-id="5480ba33" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-57942f13 elementor-widget elementor-widget-heading" data-id="57942f13" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">弊社の実績<span style="color: #ff9f0f; margin-left: 15px;">.</span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2b8b549d elementor-widget elementor-widget-text-editor" data-id="2b8b549d" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+								<div class="elementor-text-editor elementor-clearfix">
+				<p>私たちはどの日本中のどの会社よりも
+<br>当たり前の基準が高く、常に更新できる会社です</p>					</div>
+						</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-60065444 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="60065444" data-element_type="section">
+						<div class="elementor-container elementor-column-gap-no">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-1fc52b7c" data-id="1fc52b7c" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap e-swiper-container">
+						<div class="elementor-element elementor-element-38027080 elementor-align-left elementor-widget elementor-widget-victim-portfolio-masonry e-widget-swiper" data-id="38027080" data-element_type="widget" data-settings="{&quot;portfolio_layout&quot;:&quot;carousel&quot;}" data-widget_type="victim-portfolio-masonry.default">
+				<div class="elementor-widget-container">
+			<div class="section section-portfolio">
+	<div class="portfolio-boxes">	
+		<div class="victim-portfolio-wrapper">
+			<div class="swiper-container swiper-container-38027080 swiper-container-wrap-dots-outside swiper-container-initialized swiper-container-horizontal swiper-container-autoheight" data-slider-settings="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;speed&quot;:400,&quot;slidesPerView&quot;:3,&quot;spaceBetween&quot;:30,&quot;grabCursor&quot;:false,&quot;autoHeight&quot;:true,&quot;loop&quot;:true,&quot;mousewheel&quot;:false,&quot;centeredSlides&quot;:false,&quot;handleElementorBreakpoints&quot;:true,&quot;autoplay&quot;:{&quot;delay&quot;:&quot;2400&quot;},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination-38027080&quot;,&quot;type&quot;:&quot;bullets&quot;,&quot;clickable&quot;:true},&quot;breakpoints&quot;:{&quot;1024&quot;:{&quot;slidesPerView&quot;:2,&quot;spaceBetween&quot;:10},&quot;767&quot;:{&quot;slidesPerView&quot;:1,&quot;spaceBetween&quot;:10}}}">
+				<div id="portfolio-feed-38027080" class="portfolio-feed-grid swiper-wrapper" style="height: 331px; transform: translate3d(-2028.33px, 0px, 0px); transition-duration: 0ms;"><div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="2" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Interior design" title=" portfolio-v-7 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Interior design</h5>
+            <div class="cate"><span>Design</span></div><!--  /.cate -->
+        </div>
+	  
+					    									</div><!--  /.portfolio-box -->
+						
+											</div><div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="3" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Landscape" title=" portfolio-v-4-1 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Landscape</h5>
+            <div class="cate"><span>Branding</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+												<div class="portfolio-gallery-content">
+							
+																																						
+																															
+															    
+						</div><!--  /.portfolio-gallery-content -->
+											</div><div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="4" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Web page redesign" title=" portfolio-v-2 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Web page redesign</h5>
+            <div class="cate"><span>Design</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div>
+										<div class="portfolio-carousel-item swiper-slide" data-swiper-slide-index="0" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Love and happiness" title=" portfolio-v-10 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">インテリア　ショップ</h5>
+            <div class="cate"><span>interior</span><span>Shop</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div>
+									    					<div class="portfolio-carousel-item swiper-slide swiper-slide-prev" data-swiper-slide-index="1" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Winter Fashion" title=" portfolio-v-8 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Winter Fashion</h5>
+            <div class="cate"><span>Branding</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div>
+									    					<div class="portfolio-carousel-item swiper-slide swiper-slide-active" data-swiper-slide-index="2" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Interior design" title=" portfolio-v-7 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Interior design</h5>
+            <div class="cate"><span>Design</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div>
+									    					<div class="portfolio-carousel-item swiper-slide swiper-slide-next" data-swiper-slide-index="3" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Landscape" title=" portfolio-v-4-1 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Landscape</h5>
+            <div class="cate"><span>Branding</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+												<div class="portfolio-gallery-content">
+							
+																																						
+																															
+															    
+						</div><!--  /.portfolio-gallery-content -->
+											</div>
+									    					<div class="portfolio-carousel-item swiper-slide" data-swiper-slide-index="4" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Web page redesign" title=" portfolio-v-2 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Web page redesign</h5>
+            <div class="cate"><span>Design</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div>
+									     				<div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Love and happiness" title=" portfolio-v-10 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">インテリア　ショップ</h5>
+            <div class="cate"><span>interior</span><span>Shop</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div><div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev" data-swiper-slide-index="1" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/cosme.PNG" alt="Winter Fashion" title=" portfolio-v-8 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Winter Fashion</h5>
+            <div class="cate"><span>Branding</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div><div class="portfolio-carousel-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="2" style="width: 375.667px; margin-right: 30px;">
+												
+							<div class="portfolio-box">
+			    	                            <img width="630" height="630" src="img/toushi.PNG" alt="Interior design" title=" portfolio-v-7 ">
+            				            	
+										<div class="wrap">
+            <h5 class="title">Interior design</h5>
+            <div class="cate"><span>Design</span></div><!--  /.cate -->
+        </div>
+	  
+
+					    									</div><!--  /.portfolio-box -->
+						
+											</div></div>
+				            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-38027080 swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span></div>
+        			<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+					</div>
+	</div><!--  /.portfolio-boxes -->
+</div>		</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-d6dbcf1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="d6dbcf1" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-wide">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-2d5dbb9a" data-id="2d5dbb9a" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-64df2d09 elementor-widget elementor-widget-counter" data-id="64df2d09" data-element_type="widget" data-widget_type="counter.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-counter">
+			<div class="elementor-counter-number-wrapper">
+				<span class="elementor-counter-number-prefix">+</span>
+				<span class="elementor-counter-number" data-duration="2000" data-to-value="89" data-from-value="0" data-delimiter=",">89</span>
+				<span class="elementor-counter-number-suffix"></span>
+			</div>
+							<div class="elementor-counter-title">契約者数</div>
+					</div>
+				</div>
+				</div>
+						</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-5953af2d" data-id="5953af2d" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-3b82ee12 elementor-widget elementor-widget-counter" data-id="3b82ee12" data-element_type="widget" data-widget_type="counter.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-counter">
+			<div class="elementor-counter-number-wrapper">
+				<span class="elementor-counter-number-prefix">+</span>
+				<span class="elementor-counter-number" data-duration="2000" data-to-value="108" data-from-value="0" data-delimiter=",">108</span>
+				<span class="elementor-counter-number-suffix"></span>
+			</div>
+							<div class="elementor-counter-title">コミュニティ人数</div>
+					</div>
+				</div>
+				</div>
+						</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-64d544f2" data-id="64d544f2" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-7097713e elementor-widget elementor-widget-counter" data-id="7097713e" data-element_type="widget" data-widget_type="counter.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-counter">
+			<div class="elementor-counter-number-wrapper">
+				<span class="elementor-counter-number-prefix">+</span>
+				<span class="elementor-counter-number" data-duration="2000" data-to-value="22000" data-from-value="0" data-delimiter=",">22,000</span>
+				<span class="elementor-counter-number-suffix"></span>
+			</div>
+							<div class="elementor-counter-title">総フォロワー数</div>
+					</div>
+				</div>
+				</div>
+						</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-3efd5960" data-id="3efd5960" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-1e192d54 elementor-widget elementor-widget-counter" data-id="1e192d54" data-element_type="widget" data-widget_type="counter.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-counter">
+			<div class="elementor-counter-number-wrapper">
+				<span class="elementor-counter-number-prefix">+</span>
+				<span class="elementor-counter-number" data-duration="2000" data-to-value="153000" data-from-value="0" data-delimiter=",">153,000</span>
+				<span class="elementor-counter-number-suffix"></span>
+			</div>
+							<div class="elementor-counter-title">お客様総フォロワー増加数</div>
+					</div>
+				</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+			
+						</div>
+						</div>
+					</div>
+		        </div>
+        
+    </div>
+
+
+
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/victim-core/public/assets/js/front-end-widget.js" id="victim-frontend-widget-scripts-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js" id="elementor-webpack-runtime-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/frontend-modules.min.js" id="elementor-frontend-modules-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/swiper/swiper.min.js" id="swiper-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js" id="share-link-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js" id="elementor-dialog-js" defer=""></script>
+<script id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Extra","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Extra","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},
+"version":"3.4.6","is_static":false,"experimentalFeatures":{"e_import_export":true,"landing-pages":true,"elements-color-picker":true,"admin-top-bar":true},"urls":{"assets":"https:\/\/demo.softhopper.studio\/victim\/wp-content\/plugins\/elementor\/assets\/"},"settings":{"page":[],"editorPreferences":[]},"kit":{"global_image_lightbox":"yes","active_breakpoints":["viewport_mobile","viewport_tablet"],"lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":211,"title":"Service%20%E2%80%93%20Victim%20%7C%20Portfolio","excerpt":"","featuredImage":false}};
+</script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/elementor/assets/js/frontend.min.js" id="elementor-frontend-js" defer=""></script>
+<script src="https://demo.softhopper.studio/victim/wp-content/plugins/jet-blocks/assets/js/jet-blocks.min.js" id="jet-blocks-js" defer=""></script>
+<script id="jet-elements-js-extra">
+var jetElements = {"ajaxUrl":"https:\/\/demo.softhopper.studio\/victim\/wp-admin\/admin-ajax.php","isMobile":"false","templateApiUrl":"https:\/\/demo.softhopper.studio\/victim\/wp-json\/jet-elements-api\/v1\/elementor-template","devMode":"false","messages":{"invalidMail":"Please specify a valid e-mail"}};
+</script>
+
+  </body></html>
